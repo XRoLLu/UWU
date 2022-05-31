@@ -1,0 +1,277 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Mining Simulator 2", "Serpent")
+
+    local Tab = Window:NewTab("Credits")
+        local Section = Tab:NewSection("Credits to ROLLY®🗿#8821")
+    local Section = Tab:NewSection("Credits to Tora Is Me for auto mine and find chest")
+    local Player = Window:NewTab("Player")
+    local PlayerSection = Player:NewSection("Player")
+    PlayerSection:NewSlider("Walkspeed", "Changes the walkspeed", 250, 16, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+    end)
+    PlayerSection:NewSlider("Jumppower", "Changes the jumppower", 250, 50, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+    end)
+
+
+
+local Tab = Window:NewTab("Main")
+local Section = Tab:NewSection("Auto Mine")
+Section:NewToggle("ON-OFF", ".", function(state)
+    if state then
+        _G.On = true -- true = on / false = off
+-- main scripts below --
+function breakblock(pos)
+local args = {
+[1] = pos
+}
+game:GetService("ReplicatedStorage").Events.MineBlock:FireServer(unpack(args))
+end
+local Mod = require(game:GetService("ReplicatedStorage").SharedModules.ChunkUtil)
+function getPartBelow()
+local Character = game.Players.LocalPlayer.Character
+local Foot = Character.RightFoot
+local RayOrigin = Foot.Position
+local RayDirection = Vector3.new(0, -1, 0)
+local Params = RaycastParams.new()
+Params.FilterType = Enum.RaycastFilterType.Blacklist
+Params.FilterDescendantsInstances = {Character}
+local Result = workspace:Raycast(RayOrigin, RayDirection, Params)
+if Result then
+local RayInstance = Result.Instance
+print("Instance hit: " .. tostring(RayInstance))
+return RayInstance
+end
+return nil
+end
+while _G.On do
+task.wait()
+local closest = getPartBelow()
+if closest ~= nil then
+local Pos = closest.Position
+local NewPos = Mod.worldToCell(Pos)
+task.spawn(
+function()
+breakblock(NewPos)
+end
+)
+end
+end
+    else
+        _G.On = off -- true = on / false = off
+-- main scripts below --
+function breakblock(pos)
+local args = {
+[1] = pos
+}
+game:GetService("ReplicatedStorage").Events.MineBlock:FireServer(unpack(args))
+end
+local Mod = require(game:GetService("ReplicatedStorage").SharedModules.ChunkUtil)
+function getPartBelow()
+local Character = game.Players.LocalPlayer.Character
+local Foot = Character.RightFoot
+local RayOrigin = Foot.Position
+local RayDirection = Vector3.new(0, -1, 0)
+local Params = RaycastParams.new()
+Params.FilterType = Enum.RaycastFilterType.Blacklist
+Params.FilterDescendantsInstances = {Character}
+local Result = workspace:Raycast(RayOrigin, RayDirection, Params)
+if Result then
+local RayInstance = Result.Instance
+print("Instance hit: " .. tostring(RayInstance))
+return RayInstance
+end
+return nil
+end
+while _G.On do
+task.wait()
+local closest = getPartBelow()
+if closest ~= nil then
+local Pos = closest.Position
+local NewPos = Mod.worldToCell(Pos)
+task.spawn(
+function()
+breakblock(NewPos)
+end
+)
+end
+end
+    end
+end)
+local Section = Tab:NewSection("Chest Finder")
+Section:NewButton("Click", ".", function()
+    local _speed=100 -- lower if you are getting tp'd back (shouldn't happen)
+function tp(...)
+local plr=game.Players.LocalPlayer
+local args={...}
+if typeof(args[1])=="number"and args[2]and args[3]then
+args=Vector3.new(args[1],args[2],args[3])
+elseif typeof(args[1])=="Vector3" then
+args=args[1]
+elseif typeof(args[1])=="CFrame" then
+args=args[1].Position
+end
+local dist=(plr.Character.HumanoidRootPart.Position-args).Magnitude
+game:GetService("TweenService"):Create(
+plr.Character.HumanoidRootPart,
+TweenInfo.new(dist/_speed,Enum.EasingStyle.Linear),
+{CFrame=CFrame.new(args)}
+):Play()
+end
+for i,v in pairs(game:GetService("Workspace").Chests:GetChildren()) do
+if v.Name == "Epic" then -- Change the name to "Wood", "Silver", "Gold", "Epic" or "Legendary"
+tp(game:GetService("Workspace").Chests.Epic.Part.Position) -- Change The Path too to .Wood, .Silver, .Gold, .Epic or ,Legendary
+end
+end
+end)
+local Tab = Window:NewTab("Script")
+local Section = Tab:NewSection("ALL SCRIPT IS NOT MINE")
+Section:NewButton("SoggyWare", "Click to Execute SoggyWare", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/SunkenMuch/Soggyware/main/Main',true))()
+   
+end)
+    Section:NewButton("Infinite Yield", "Click To Execute Infinite Yield(Admin script)", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    
+end)
+    Section:NewButton("Fly Script", "i should add this on player but whatever", function()
+    local flyButton = Instance.new("TextButton")
+local function setFlyButton()
+    local script = Instance.new("LocalScript", flyButton)
+
+    flyButton.Parent = tab_1
+    flyButton.Name = "flyButton"
+    flyButton.Text = "Fly [C]"
+    flyButton.TextScaled = true
+    flyButton.Font = Enum.Font.Ubuntu
+    flyButton.BackgroundColor3 = Color3.new(1, 0, 0)
+    flyButton.Position = UDim2.new(0, 10, 0, 160)
+    flyButton.Size = UDim2.new(0.9, 0, 0.05, 0)
+    flyButton.BorderColor3 = Color3.new(1, 1, 1)
+
+    local flying = false
+    local lplayer = game.Players.LocalPlayer
+    local speedget = 1
+    local speedfly = 0.5
+    local Mouse = lplayer:GetMouse()
+
+    local function fly()
+        repeat wait() until lplayer and lplayer.Character and
+            lplayer.Character:FindFirstChild('HumanoidRootPart') and
+            lplayer.Character:FindFirstChild('Humanoid')
+        repeat wait() until Mouse
+
+        local T = lplayer.Character.HumanoidRootPart
+        local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+        local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+        local SPEED = speedget
+
+        Mouse.KeyDown:Connect(function(KEY)
+            if KEY:lower() == 'w' then
+                CONTROL.F = speedfly
+            elseif KEY:lower() == 's' then
+                CONTROL.B = -speedfly
+            elseif KEY:lower() == 'a' then
+                CONTROL.L = -speedfly
+            elseif KEY:lower() == 'd' then
+                CONTROL.R = speedfly
+            end
+        end)
+        Mouse.KeyUp:Connect(function(KEY)
+            if KEY:lower() == 'w' then
+                CONTROL.F = 0
+            elseif KEY:lower() == 's' then
+                CONTROL.B = 0
+            elseif KEY:lower() == 'a' then
+                CONTROL.L = 0
+            elseif KEY:lower() == 'd' then
+                CONTROL.R = 0
+            end
+        end)
+
+        flying = true
+        local BG = Instance.new('BodyGyro', T)
+        local BV = Instance.new('BodyVelocity', T)
+        BG.P = 9e4
+        BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        BG.cframe = T.CFrame
+        BV.velocity = Vector3.new(0, 0.1, 0)
+        BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+        spawn(function()
+            repeat
+                wait()
+                lplayer.Character.Humanoid.PlatformStand = true
+                if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+                    SPEED = 50
+                elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~=
+                    0) and SPEED ~= 0 then
+                    SPEED = 0
+                end
+                if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+                    BV.velocity = ((workspace.CurrentCamera.CoordinateFrame
+                                      .lookVector * (CONTROL.F + CONTROL.B)) +
+                                      ((workspace.CurrentCamera.CoordinateFrame *
+                                          CFrame.new(CONTROL.L + CONTROL.R,
+                                                     (CONTROL.F + CONTROL.B) *
+                                                         0.2, 0).p) -
+                                          workspace.CurrentCamera
+                                              .CoordinateFrame.p)) * SPEED
+                    lCONTROL = {
+                        F = CONTROL.F,
+                        B = CONTROL.B,
+                        L = CONTROL.L,
+                        R = CONTROL.R
+                    }
+                elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) ==
+                    0 and SPEED ~= 0 then
+                    BV.velocity = ((workspace.CurrentCamera.CoordinateFrame
+                                      .lookVector * (lCONTROL.F + lCONTROL.B)) +
+                                      ((workspace.CurrentCamera.CoordinateFrame *
+                                          CFrame.new(lCONTROL.L + lCONTROL.R,
+                                                     (lCONTROL.F + lCONTROL.B) *
+                                                         0.2, 0).p) -
+                                          workspace.CurrentCamera
+                                              .CoordinateFrame.p)) * SPEED
+                else
+                    BV.velocity = Vector3.new(0, 0.1, 0)
+                end
+                BG.cframe = workspace.CurrentCamera.CoordinateFrame
+            until not flying
+            CONTROL = {F = 0, B = 0, L = 0, R = 0}
+            lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+            SPEED = 0
+            BG:destroy()
+            BV:destroy()
+            lplayer.Character.Humanoid.PlatformStand = false
+        end)
+    end
+
+    script.Parent.MouseButton1Click:Connect(function()
+        if flying == false then
+            flyButton.BackgroundColor3 = Color3.new(0, 1, 0)
+            fly()
+        else
+            flying = false
+            flyButton.BackgroundColor3 = Color3.new(1, 0, 0)
+            lplayer.Character.Humanoid.PlatformStand = false
+        end
+    end)
+
+    Mouse.KeyDown:Connect(function(k)
+        if k:lower() == "c" then
+            if flying == false then
+                flyButton.BackgroundColor3 = Color3.new(0, 1, 0)
+
+                fly()
+            else
+                flying = false
+                flyButton.BackgroundColor3 = Color3.new(1, 0, 0)
+                lplayer.Character.Humanoid.PlatformStand = false
+            end
+        end
+    end)
+end
+coroutine.wrap(setFlyButton)()
+end)
+
+
