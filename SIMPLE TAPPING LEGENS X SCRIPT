@@ -1,0 +1,22 @@
+--MADE BY ROLLY® 🗿#8821
+--VERY SIMPLE TAPPING LEGENS X SCRIPT
+
+_G.autorebirth = true; --set this to true to turn on auto rebirth. set false to turn off auto rebirth
+_G.autotap = true; --set this to true to turn on auto tap. set false to turn off auto tap
+
+--main script is in bottom--
+spawn(function ()	
+while _G.autorebirth == true do
+local args = {    [1] = 1
+}
+game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer(unpack(args))
+wait()
+end
+end)
+
+spawn(function()
+	while _G.autotap == true do
+game:GetService("ReplicatedStorage").Remotes.Tap:FireServer()
+    wait()
+   end
+end)
