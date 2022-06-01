@@ -1,9 +1,10 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Mining Simulator 2", "Serpent")
+local Window = Library.CreateLib("Mining Simulator", "Serpent")
 
     local Tab = Window:NewTab("Credits")
         local Section = Tab:NewSection("Credits to ROLLY®🗿#8821")
     local Section = Tab:NewSection("Credits to Tora Is Me for auto mine and find chest")
+    local Section = Tab:NewSection("I dont Know how to code btw and all the script is not mine")
     local Player = Window:NewTab("Player")
     local PlayerSection = Player:NewSection("Player")
     PlayerSection:NewSlider("Walkspeed", "Changes the walkspeed", 250, 16, function(v)
@@ -126,8 +127,8 @@ end
 end)
 local Tab = Window:NewTab("Script")
 local Section = Tab:NewSection("ALL SCRIPT IS NOT MINE")
-Section:NewButton("SoggyWare", "Click to Execute SoggyWare", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/SunkenMuch/Soggyware/main/Main',true))()
+Section:NewButton("ZeeroxMS2", "Click to Execute zeeroxms2", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/RunDTM/miningsim2/main/script.lua'))()
    
 end)
     Section:NewButton("Infinite Yield", "Click To Execute Infinite Yield(Admin script)", function()
