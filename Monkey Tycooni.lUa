@@ -5,7 +5,7 @@
 --Thx!
 
 _G.ToggleColor = Color3.fromRGB(0,160,201)
-_G.ButtonColor = Color3.fromRGB(0,255,0)
+_G.ButtonColor = Color3.fromRGB(0,0,255)
 _G.SliderColor = Color3.fromRGB(0,0,255)
 
 local library = loadstring(game:HttpGet(('https://garfieldscripts.xyz/ui-libs/wallys-ui.lua')))() -- It's obfuscated, I won't let you see my ugly coding skills. =)
@@ -53,9 +53,9 @@ b:Toggle("Auto Upgrade Banana Launcher",function(bool)
 end)
 
 b:Toggle("Auto Merge Monkeys",function(bool)
-	getgenv().colBanana = bool
+	getgenv().Merge = bool
 	task.spawn(function()
-		while colBanana do task.wait(1)
+		while Merge do task.wait(1)
 		    pcall(function()
 				game:GetService("ReplicatedStorage").GTycoonClient.Remotes.MergeDroppers:FireServer()
 		    end)
